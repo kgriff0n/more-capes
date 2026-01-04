@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "more-capes",
+	"version": "${version}",
+	"name": "More Capes",
+	"description": "Client-side custom capes, visible to anyone with this mod!",
+	"authors": [
+		"KGriffon"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/more-capes",
+		"sources": "https://github.com/kgriff0n/more-capes"
+	},
+	"license": "MIT",
+	"icon": "assets/more-capes/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.kgriffon.MoreCapes"
+		]
+	},
+	"mixins": [
+		"more-capes.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.2",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

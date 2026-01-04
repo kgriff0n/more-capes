@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "dev.kgriffon.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "PlayerSkinProviderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  },
+  "client": [
+    "PlayerSkinTextureDownloaderMixin"
+  ]
+}
