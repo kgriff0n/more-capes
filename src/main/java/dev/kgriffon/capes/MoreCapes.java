@@ -1,7 +1,7 @@
-package dev.kgriffon;
+package dev.kgriffon.capes;
 
-import dev.kgriffon.command.CapeCommand;
-import dev.kgriffon.util.CapeManager;
+import dev.kgriffon.capes.command.CapeCommand;
+import dev.kgriffon.capes.util.CapeManager;
 import net.fabricmc.api.ClientModInitializer;
 
 import org.slf4j.Logger;

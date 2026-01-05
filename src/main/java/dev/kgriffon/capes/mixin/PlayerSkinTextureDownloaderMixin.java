@@ -1,7 +1,7 @@
-package dev.kgriffon.mixin;
+package dev.kgriffon.capes.mixin;
 
-import dev.kgriffon.MoreCapes;
-import dev.kgriffon.util.CapeCache;
+import dev.kgriffon.capes.MoreCapes;
+import dev.kgriffon.capes.util.CapeCache;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.PlayerSkinTextureDownloader;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,10 +28,7 @@ public class PlayerSkinTextureDownloaderMixin {
                 for (int i = 0; i < 8; i++) {
                     capeHash.append(String.format("%08X", image.getColorArgb(i, 1)));
                 }
-                String finalHash = capeHash.toString();
-                if (finalHash.startsWith("0")) {
-                    finalHash = finalHash.substring(1);
-                }
+                String finalHash = capeHash.toString().replaceFirst("^0+", "");
                 MoreCapes.LOGGER.info("Cape {} found for the skin {}", finalHash.toLowerCase(), skinHash);
                 CapeCache.registerCape(skinHash, finalHash.toLowerCase());
             } else {

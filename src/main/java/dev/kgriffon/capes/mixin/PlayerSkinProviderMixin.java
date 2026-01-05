@@ -1,11 +1,10 @@
-package dev.kgriffon.mixin;
+package dev.kgriffon.capes.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTextures;
-import dev.kgriffon.MoreCapes;
-import dev.kgriffon.util.CapeCache;
+import dev.kgriffon.capes.MoreCapes;
+import dev.kgriffon.capes.util.CapeCache;
 import net.minecraft.client.texture.PlayerSkinProvider;
 import net.minecraft.client.texture.PlayerSkinTextureDownloader;
 import net.minecraft.entity.player.SkinTextures;
@@ -31,34 +30,6 @@ public abstract class PlayerSkinProviderMixin {
     @Inject(at = @At("HEAD"), method = "<init>")
     private static void getAssetsCache(Path cacheDirectory, ApiServices apiServices, PlayerSkinTextureDownloader downloader, Executor executor, CallbackInfo ci) {
         CapeCache.setAssetsCache(cacheDirectory);
-    }
-
-    @ModifyExpressionValue(
-            method = "fetchSkinTextures(Ljava/util/UUID;Lcom/mojang/authlib/minecraft/MinecraftProfileTextures;)Ljava/util/concurrent/CompletableFuture;",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/mojang/authlib/minecraft/MinecraftProfileTextures;cape()Lcom/mojang/authlib/minecraft/MinecraftProfileTexture;"
-            )
-    )
-    private MinecraftProfileTexture replaceCape(
-            MinecraftProfileTexture cape,
-            UUID uuid,
-            MinecraftProfileTextures textures
-    ) {
-        if (textures.skin() != null) {
-            String skinHash = textures.skin().getHash();
-            String capeHash = CapeCache.getCape(skinHash);
-
-            if (capeHash != null) {
-                MoreCapes.LOGGER.info("Apply the cape for {}", uuid);
-                return new MinecraftProfileTexture(
-                        "https://textures.minecraft.net/texture/" + capeHash,
-                        Map.of()
-                );
-            }
-        }
-
-        return cape;
     }
 
     @ModifyReturnValue(

@@ -1,7 +1,7 @@
-package dev.kgriffon.util;
+package dev.kgriffon.capes.util;
 
 import com.mojang.brigadier.suggestion.SuggestionProvider;
-import dev.kgriffon.MoreCapes;
+import dev.kgriffon.capes.MoreCapes;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.loader.api.FabricLoader;
 

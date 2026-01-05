@@ -1,4 +1,4 @@
-package dev.kgriffon.util;
+package dev.kgriffon.capes.util;
 
 import java.nio.file.Path;
 import java.util.HashMap;

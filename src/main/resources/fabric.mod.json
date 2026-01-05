@@ -16,7 +16,7 @@
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"dev.kgriffon.MoreCapes"
+          "dev.kgriffon.capes.MoreCapes"
 		]
 	},
 	"mixins": [

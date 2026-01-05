@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "dev.kgriffon.mixin",
+  "package": "dev.kgriffon.capes.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "PlayerSkinProviderMixin"

@@ -1,11 +1,11 @@
-package dev.kgriffon.command;
+package dev.kgriffon.capes.command;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
-import dev.kgriffon.MoreCapes;
-import dev.kgriffon.util.CapeCache;
-import dev.kgriffon.util.CapeManager;
-import dev.kgriffon.util.MojangApi;
+import dev.kgriffon.capes.MoreCapes;
+import dev.kgriffon.capes.util.CapeCache;
+import dev.kgriffon.capes.util.CapeManager;
+import dev.kgriffon.capes.util.MojangApi;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -111,10 +111,7 @@ public class CapeCommand {
 
             CompletableFuture.runAsync(() -> {
                 try {
-                    String finalHash = capeHash;
-                    if (finalHash.length() == 63) {
-                        finalHash = "0" + capeHash;
-                    }
+                    String finalHash = String.format("%64s", capeHash).replace(' ', '0');
                     BufferedImage image = ImageIO.read(originalSkin);
 
                     image.setRGB(0, 0, (int) Long.parseLong("CAFEBABE", 16));
@@ -135,9 +132,7 @@ public class CapeCommand {
                     });
                 } catch (Exception e) {
                     MoreCapes.LOGGER.info("An error has occurred {}", e.getMessage());
-                    client.execute(() -> {
-                        player.sendMessage(Text.literal("An error has occurred.").withColor(Colors.LIGHT_RED), false);
-                    });
+                    client.execute(() -> player.sendMessage(Text.literal("An error has occurred.").withColor(Colors.LIGHT_RED), false));
                 }
             });
         }
@@ -174,9 +169,7 @@ public class CapeCommand {
                     });
                 } catch (Exception e) {
                     MoreCapes.LOGGER.info("An error has occurred {}", e.getMessage());
-                    client.execute(() -> {
-                        player.sendMessage(Text.literal("An error has occurred.").withColor(Colors.LIGHT_RED), false);
-                    });
+                    client.execute(() -> player.sendMessage(Text.literal("An error has occurred.").withColor(Colors.LIGHT_RED), false));
                 }
 
             });

@@ -1,6 +1,6 @@
-package dev.kgriffon.util;
+package dev.kgriffon.capes.util;
 
-import dev.kgriffon.MoreCapes;
+import dev.kgriffon.capes.MoreCapes;
 import kong.unirest.core.HttpResponse;
 import kong.unirest.core.JsonNode;
 import kong.unirest.core.Unirest;
