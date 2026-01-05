@@ -3,12 +3,11 @@ package dev.kgriffon.capes.mixin;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTextures;
+import com.mojang.authlib.minecraft.MinecraftSessionService;
 import dev.kgriffon.capes.MoreCapes;
 import dev.kgriffon.capes.util.CapeCache;
 import net.minecraft.client.texture.PlayerSkinProvider;
-import net.minecraft.client.texture.PlayerSkinTextureDownloader;
-import net.minecraft.entity.player.SkinTextures;
-import net.minecraft.util.ApiServices;
+import net.minecraft.client.util.SkinTextures;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,8 +27,8 @@ public abstract class PlayerSkinProviderMixin {
     abstract CompletableFuture<SkinTextures> fetchSkinTextures(UUID uuid, MinecraftProfileTextures textures);
 
     @Inject(at = @At("HEAD"), method = "<init>")
-    private static void getAssetsCache(Path cacheDirectory, ApiServices apiServices, PlayerSkinTextureDownloader downloader, Executor executor, CallbackInfo ci) {
-        CapeCache.setAssetsCache(cacheDirectory);
+    private static void getAssetsCache(Path directory, MinecraftSessionService sessionService, Executor executor, CallbackInfo ci) {
+        CapeCache.setAssetsCache(directory);
     }
 
     @ModifyReturnValue(

@@ -15,7 +15,7 @@ import java.nio.file.Path;
 public class PlayerSkinTextureDownloaderMixin {
 
     @Inject(at = @At("RETURN"), method = "download")
-    private void download(Path path, String url, CallbackInfoReturnable<NativeImage> cir) {
+    private static void download(Path path, String url, CallbackInfoReturnable<NativeImage> cir) {
 
         String[] splitUrl = url.split("/");
         String skinHash = splitUrl[splitUrl.length - 1];

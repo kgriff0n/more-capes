@@ -9,7 +9,7 @@ import dev.kgriffon.capes.util.MojangApi;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.player.PlayerSkinType;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.text.*;
 import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
@@ -75,7 +75,7 @@ public class CapeCommand {
             Path capeTexture = CapeManager.getCapePath(capeId);
 
             CompletableFuture.runAsync(() -> {
-                String capeHash = MojangApi.uploadSkin(client.getSession().getAccessToken(), capeTexture.toFile(), player.getSkin().model() == PlayerSkinType.SLIM ? "slim" : "classic");
+                String capeHash = MojangApi.uploadSkin(client.getSession().getAccessToken(), capeTexture.toFile(), player.getSkinTextures().model() == SkinTextures.Model.SLIM ? "slim" : "classic");
                 if (capeHash != null) {
                     try {
                         Thread.sleep(2000);
@@ -100,7 +100,7 @@ public class CapeCommand {
         ClientPlayerEntity player = client.player;
 
         if (player != null) {
-            Identifier texturePath = player.getSkin().body().texturePath();
+            Identifier texturePath = player.getSkinTextures().texture();
             String hash = texturePath.getPath().split("/")[1];
             Path path = CapeCache.getAssetsCache().resolve(hash.length() > 2 ? hash.substring(0, 2) : "xx").resolve(hash);
             File originalSkin = path.toFile();
@@ -120,7 +120,7 @@ public class CapeCommand {
                     }
 
                     ImageIO.write(image, "png", CapeManager.getOutputPath().toFile());
-                    MojangApi.uploadSkin(client.getSession().getAccessToken(), CapeManager.getOutputPath().toFile(), player.getSkin().model() == PlayerSkinType.SLIM ? "slim" : "classic");
+                    MojangApi.uploadSkin(client.getSession().getAccessToken(), CapeManager.getOutputPath().toFile(), player.getSkinTextures().model() == SkinTextures.Model.SLIM ? "slim" : "classic");
                     client.execute(() -> {
                         MutableText message = Text.literal("The cape has been successfully applied.")
                                 .styled(style -> Style.EMPTY
@@ -147,7 +147,7 @@ public class CapeCommand {
 
             player.sendMessage(Text.literal("Resetting the cape...").formatted(Formatting.ITALIC, Formatting.GRAY), false);
 
-            Identifier texturePath = player.getSkin().body().texturePath();
+            Identifier texturePath = player.getSkinTextures().texture();
             String hash = texturePath.getPath().split("/")[1];
             Path path = CapeCache.getAssetsCache().resolve(hash.length() > 2 ? hash.substring(0, 2) : "xx").resolve(hash);
             File originalSkin = path.toFile();
@@ -157,7 +157,7 @@ public class CapeCommand {
                     BufferedImage image = ImageIO.read(originalSkin);
                     image.setRGB(0, 0, (int) Long.parseLong("00000000", 16));
                     ImageIO.write(image, "png", CapeManager.getOutputPath().toFile());
-                    MojangApi.uploadSkin(client.getSession().getAccessToken(), CapeManager.getOutputPath().toFile(), player.getSkin().model() == PlayerSkinType.SLIM ? "slim" : "classic");
+                    MojangApi.uploadSkin(client.getSession().getAccessToken(), CapeManager.getOutputPath().toFile(), player.getSkinTextures().model() == SkinTextures.Model.SLIM ? "slim" : "classic");
                     client.execute(() -> {
                         MutableText message = Text.literal("The cape has been successfully reset.")
                                 .styled(style -> Style.EMPTY
