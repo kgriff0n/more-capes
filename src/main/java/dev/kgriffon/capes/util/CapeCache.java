@@ -28,4 +28,8 @@ public class CapeCache {
         return CAPES_HASH.containsKey(skinHash);
     }
 
+    public static HashMap<String, String> getAll() {
+        return new HashMap<>(CAPES_HASH);
+    }
+
 }
